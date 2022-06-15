@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from "axios";
 import { Link } from 'react-router-dom'
-import { setPageName } from '../redux/pageNameSlice';
+import { setPageNameJson } from '../redux/pageNameSlice';
 import { useDispatch } from 'react-redux';
 import PictureUploadUI from './PictureUploadUI'
 import PictureConvertChinpoUI from './PictureConvertChinpoUI'
@@ -17,15 +17,17 @@ function Products(props) {
 		});
 	};
 
+  const date1 = new Date();
+
   const dispatch = useDispatch();
-  const pageName = "Products";
+  const pageName = JSON.stringify({name: "Products", time: date1.toLocaleString()});
 
   return (
     < div className="products">
       <h1>Productです</h1>
-      <Link to="/about" onClick={() => dispatch(setPageName(pageName))}>Link to About</Link>
+      <Link to="/about" onClick={() => dispatch(setPageNameJson(pageName))}>Link to About</Link>
       <br></br>
-      <Link to="/" onClick={() => dispatch(setPageName(pageName))}>Link to Home</Link>
+      <Link to="/" onClick={() => dispatch(setPageNameJson(pageName))}>Link to Home</Link>
       <br></br>
       {data ? <div>{data.Hello}</div> : <button onClick={GetData}>データを取得</button>}
       <br></br>

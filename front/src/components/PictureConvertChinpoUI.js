@@ -8,7 +8,7 @@ const PictureConvertChinpoUI = () => {
       // const params = new FormData(document.forms[0]); // FormDataで送る場合
       const src = document.getElementById('original-image').src;
 
-      if (src != "") {
+      if (src !== "") {
         // params.append('originalImage', src); //FormDataで送る場合 
 
         axios.post(

@@ -1,7 +1,7 @@
 from fastapi import FastAPI#, Request, Response #リクエスト、レスポンスを使う場合
 from fastapi.middleware.cors import CORSMiddleware
-#from Utils import convertChinpo 
-from .Utils import convertChinpo #デバッグ用
+from Utils import convertChinpo 
+#from .Utils import convertChinpo #デバッグ用
 import base64
 from io import BytesIO
 from PIL import Image

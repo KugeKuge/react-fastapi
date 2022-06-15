@@ -4,10 +4,11 @@ import { setPageNameJson } from '../redux/pageNameSlice';
 import { useDispatch } from 'react-redux';
 
 function Home(props) {
-  // Homeだけ、JSONで複数の引数を渡すテスト(setPageNameJson)
+  // JSONで複数の引数を渡す(setPageNameJson)
+  const date1 = new Date();
   const dispatch = useDispatch();
-  const jsonTest = {name: 'Home', aaaaa: 20};
-  const pageName = JSON.stringify(jsonTest);
+  const pageName = JSON.stringify({name: "Home", time: date1.toLocaleString()});
+
   return (
     < div className="home">
       <h1>Homeです。</h1>

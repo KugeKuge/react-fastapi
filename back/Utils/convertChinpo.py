@@ -9,8 +9,8 @@ def scale_to_width(img, width):
 
 # 読み込んだ画像にちんぽを縮尺変えて貼り付ける
 def paste_chinpo(img):
-    chinpo = Image.open("back/image/chinpo.jpg") #デバッグ用
-    #chinpo = Image.open("image/chinpo.jpg")
+    #chinpo = Image.open("back/image/chinpo.jpg") #デバッグ用
+    chinpo = Image.open("image/chinpo.jpg")
     face_bboxes = face_recognition.face_locations(np.asarray(img))
 
     for xy in face_bboxes:
