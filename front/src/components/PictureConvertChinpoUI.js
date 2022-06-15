@@ -5,21 +5,26 @@ const PictureConvertChinpoUI = () => {
 
     const onClick = (e) => {
 
-      const params = new FormData(document.forms[0]);
+      // const params = new FormData(document.forms[0]); // FormDataで送る場合
       const src = document.getElementById('original-image').src;
 
       if (src != "") {
-        params.append('originalImage', src); 
+        // params.append('originalImage', src); //FormDataで送る場合 
 
         axios.post(
             url,
-            params
+            {
+              base64_image_string: src // リクエストボディで送る場合 JSONで複数指定
+            }//,
+            //{headers: {'Content-Type': 'application/json'}} //うまくいかないときはヘッダを指定すれば良いケースもあるらしい
+            // params //FormDataで送る場合 
             )
             .then(res => {
               const img = document.querySelector('#chinpo-image')
-              img.src = "data:image/png;base64," + res.data
-                
-                img.onload = function() {
+              // img.src = "data:image/jpg;base64," + res.data //画像単体で帰ってきたとき
+              img.src = "data:image/jpg;base64," + res.data.base64_image_string // Jsonで帰ってきたとき
+
+              img.onload = function() {
                 const imagePreviewSize = 500;
 
                 const wkWidth = img.naturalWidth;
