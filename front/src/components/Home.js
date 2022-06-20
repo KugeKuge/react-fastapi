@@ -11,7 +11,7 @@ function Home(props) {
 
   return (
     < div className="home">
-      <h1>Homeです。</h1>
+      <h1 className="text-3xl font-bold underline">Homeです。</h1>
       <Link to="/products" onClick={() => dispatch(setPageNameJson(pageName))}>Link to Products</Link>
       <br></br>
       <Link to="/about" onClick={() => dispatch(setPageNameJson(pageName))}>Link to About</Link>

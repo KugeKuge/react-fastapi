@@ -1,6 +1,6 @@
 from fastapi import FastAPI#, Request, Response #リクエスト、レスポンスを使う場合
 from fastapi.middleware.cors import CORSMiddleware
-from Utils import convertChinpo 
+from Utils import ConvertChinpo 
 #from .Utils import convertChinpo #デバッグ用
 import base64
 from io import BytesIO
@@ -8,11 +8,14 @@ from PIL import Image
 from pydantic import BaseModel #リクエストボディの中をクラスで定義する
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from Utils import SearchChinpoTweet
 
 app = FastAPI()
 
 origins = [
     "http://localhost:3000",
+    "http://192.168.10.14:3000",
+    "http://192.168.10.14",
 ] #通信するreactなどのアプリのURLを記載しましょう。最初はlocalとの通信をしたいので、http://localhost:3000しか登録してませんが、後ほどフロントエンドのアプリをサーバーにデプロイした際には、URLを増やすことになると思います。
 
 app.add_middleware(
@@ -31,6 +34,10 @@ class ChinpoImageItem(BaseModel):
 def Hello():
     return {"Hello":"World!"} #{"Hello":"World!"}というjsonを返すように設定しています。このように、FastAPIでは、returnにjsonを書くだけで、json形式でレスポンスを送る事ができます。
 
+@app.get("/getRecentChinpo") 
+def GetRecentChinpo():
+    return SearchChinpoTweet.SearchTweets()
+
 @app.post("/chinpo") 
 # def letsChinpo(request: Request): #FormDataで送る場合
     #form = await request.form()
@@ -41,7 +48,7 @@ def letsChinpo(item: ChinpoImageItem): # リクエストボディで送る場合
     
     image = Image.open(BytesIO(base64.b64decode(base64_image_string.split(",")[1])))
 
-    chinpo_image = convertChinpo.paste_chinpo(image)
+    chinpo_image = ConvertChinpo.paste_chinpo(image)
     
     buff = BytesIO()
     chinpo_image.save(buff, format="JPEG")
